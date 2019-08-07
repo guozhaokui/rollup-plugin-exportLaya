@@ -1,3 +1,7 @@
+
+const path = require('path');
+let layaexpreplace = '//__LAYARPLACEMENTHERE__//';
+
 /**
  * 主要用来给laya库加上所有的Laya.xx=xx
  * 主要用在
@@ -9,11 +13,8 @@
  * gatherExtFiles:string[] 收集用到的laya文件。这表示是分包模式
  * baseUrl:string   设置baseurl，只有分包模式用到
  */
-
-const path = require('path');
-
-let layaexpreplace = '//__LAYARPLACEMENTHERE__//';
-export default function layaExpPlugin(options) {
+function layaExpPlugin(options) {
+    let dirname = process.cwd();
     let opt = options;
     let layaPath = null;
     let layafiles = null;
@@ -27,11 +28,11 @@ export default function layaExpPlugin(options) {
 
         layaPath = options.layaPath;
         if (layaPath)
-            layaPath = path.resolve(__dirname, layaPath);
+            layaPath = path.resolve(dirname, layaPath);
 
         baseUrl = opt.baseUrl;
         if (baseUrl) {
-            baseUrl = path.resolve(__dirname, baseUrl);
+            baseUrl = path.resolve(dirname, baseUrl);
         }
     }
 
@@ -91,3 +92,5 @@ export default function layaExpPlugin(options) {
         }
     });
 }
+
+module.exports = layaExpPlugin;
