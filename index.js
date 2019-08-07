@@ -75,7 +75,7 @@ function layaExpPlugin(options) {
             if (p < 0)
                 return code;
 
-            let expstr = '';
+            let expstr = 'Laya=window.Laya;\n';
             let islayalib = opt.isLayaLib;
             for (let mod in chunk.modules) {
                 if (!islayalib && !isLayaPath(mod))
@@ -88,7 +88,8 @@ function layaExpPlugin(options) {
                 });
             }
             // 插入导出的模块
-            return code.substr(0, p) + expstr + code.substr(p + replacestr.length);
+            let st = 'window.Laya=window.Laya||{};\n';
+            return st+code.substr(0, p) + expstr + code.substr(p + replacestr.length);
         }
     });
 }
